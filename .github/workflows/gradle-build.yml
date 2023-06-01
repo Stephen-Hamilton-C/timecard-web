@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - name: Set up JDK 11
+      - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
@@ -26,9 +26,10 @@ jobs:
       - name: Publish timecard-lib to Local Maven Repo
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publishToMavenLocal
+          arguments: publishJsPublicationToMavenLocal
       - name: Clone current commit
         uses: actions/checkout@v3
+        # TODO: Fails at this step. Does not seem to see the timecard-lib...
       - name: Execute Gradle Build
         uses: gradle/gradle-build-action@v2
         with:
