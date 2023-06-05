@@ -1,8 +1,6 @@
 name: Gradle Build
 run-name: ${{ github.actor }} pushed a new commit
-# TODO: Need to test this workflow more. For now, I have better things to focus on.
-on: workflow_dispatch
-#on: [push, pull_request]
+on: [push, pull_request]
 permissions:
   contents: read
 
@@ -29,7 +27,6 @@ jobs:
           arguments: publishToMavenLocal
       - name: Clone current commit
         uses: actions/checkout@v3
-        # TODO: Fails at this step. Does not seem to see the timecard-lib...
       - name: Execute Gradle Build
         uses: gradle/gradle-build-action@v2
         with:
