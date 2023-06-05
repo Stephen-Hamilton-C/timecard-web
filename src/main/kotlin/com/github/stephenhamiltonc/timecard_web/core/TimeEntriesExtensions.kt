@@ -10,7 +10,7 @@ fun TimeEntries.saveToStorage() {
     localStorage.setItem(entriesStorageKey, entriesData)
 }
 
-fun TimeEntries.Companion.loadFromStorage() {
+fun TimeEntries.Companion.loadFromStorage(): TimeEntries {
     val entriesData = localStorage.getItem(entriesStorageKey)
     return if(entriesData != null) {
         TimeEntries.fromString(entriesData)
