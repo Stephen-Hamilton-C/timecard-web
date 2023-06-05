@@ -26,7 +26,7 @@ jobs:
       - name: Publish timecard-lib to Local Maven Repo
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publishJsPublicationToMavenLocal
+          arguments: publishToMavenLocal
       - name: Clone current commit
         uses: actions/checkout@v3
         # TODO: Fails at this step. Does not seem to see the timecard-lib...
