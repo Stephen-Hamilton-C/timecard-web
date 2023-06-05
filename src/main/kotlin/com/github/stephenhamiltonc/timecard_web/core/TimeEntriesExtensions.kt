@@ -7,11 +7,11 @@ private const val entriesStorageKey = "timeentries"
 
 fun TimeEntries.saveToStorage() {
     val entriesData = this.toString()
-    localStorage[entriesStorageKey] = entriesData
+    localStorage.setItem(entriesStorageKey, entriesData)
 }
 
 fun TimeEntries.Companion.loadFromStorage() {
-    val entriesData = localStorage[entriesStorageKey]
+    val entriesData = localStorage.getItem(entriesStorageKey)
     return if(entriesData != null) {
         TimeEntries.fromString(entriesData)
     } else {
