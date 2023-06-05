@@ -56,7 +56,7 @@ kotlin {
         implementation("io.kvision:kvision-toastify:$kvisionVersion")
         implementation("io.kvision:kvision-bootstrap-icons:$kvisionVersion")
         implementation("io.kvision:kvision-tabulator:$kvisionVersion")
-        implementation("com.github.stephenhamiltonc:timecard:1.0.0")
+        implementation("com.github.stephenhamiltonc:timecard-lib:1.0.0")
     }
     sourceSets["test"].dependencies {
         implementation(kotlin("test-js"))

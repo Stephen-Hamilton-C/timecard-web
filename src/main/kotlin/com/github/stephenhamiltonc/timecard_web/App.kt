@@ -16,7 +16,7 @@ import io.kvision.startApplication
 
 class App : Application() {
     override fun start() {
-        root("kvapp") {
+        root("timecard-web") {
             div("Hello world")
             // TODO
         }
