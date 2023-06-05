@@ -1,7 +1,7 @@
 package com.github.stephenhamiltonc.timecard_web.core
 
 import com.github.stephenhamiltonc.timecard.TimeEntries
-import kotlin.browser.localStorage
+import kotlinx.browser.localStorage
 
 private const val entriesStorageKey = "timeentries"
 
