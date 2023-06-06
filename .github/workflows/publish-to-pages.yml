@@ -36,7 +36,7 @@ jobs:
         with:
           name: github-pages
           # TODO: Need to find exact path
-          path: ./build/path/to/artifact/*
+          path: ./build/distributions/*
           if-no-files-found: error
   deploy:
     # Add a dependency to the build job
