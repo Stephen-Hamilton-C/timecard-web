@@ -31,6 +31,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
+      - name: Upload Pages artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: github-pages
+          # TODO: Need to find exact path
+          path: ./build/path/to/artifact/*
+          if-no-files-found: error
   deploy:
     # Add a dependency to the build job
     needs: build
@@ -48,7 +55,6 @@ jobs:
     # Specify runner + deployment step
     runs-on: ubuntu-22.04
     steps:
-      # TODO: Need to figure out what deploy-pages expects
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
