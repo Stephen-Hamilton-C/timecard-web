@@ -38,6 +38,10 @@ class App : Application() {
                     timeEntries.clear()
                     TimeEntriesState.save()
                 }
+                button("Undo").onClick {
+                    timeEntries.undo()
+                    TimeEntriesState.save()
+                }
                 button("Clock $clockText").onClick {
                     if (timeEntries.isClockedIn) {
                         timeEntries.clockOut()
