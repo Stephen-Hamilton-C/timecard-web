@@ -21,7 +21,7 @@ import kotlin.math.roundToInt
 
 class App : Application() {
     private fun getQuarterHours(minutes: Long): Double {
-        return (minutes / 60) + ((minutes / 15.0).roundToInt() * 15.0) / 60.0
+        return ((minutes / 15.0).roundToInt() * 15.0) / 60.0
     }
 
     override fun start() {
