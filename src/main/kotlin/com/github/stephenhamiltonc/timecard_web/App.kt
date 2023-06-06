@@ -1,5 +1,6 @@
 package com.github.stephenhamiltonc.timecard_web
 
+import com.github.stephenhamiltonc.timecard_web.core.TimeEntriesState
 import io.kvision.Application
 import io.kvision.CoreModule
 import io.kvision.BootstrapModule
@@ -9,16 +10,65 @@ import io.kvision.ToastifyModule
 import io.kvision.BootstrapIconsModule
 import io.kvision.TabulatorModule
 import io.kvision.TabulatorCssBootstrapModule
-import io.kvision.html.div
+import io.kvision.html.button
+import io.kvision.html.span
 import io.kvision.module
 import io.kvision.panel.root
+import io.kvision.panel.vPanel
 import io.kvision.startApplication
+import io.kvision.state.bind
+import kotlin.math.roundToInt
 
 class App : Application() {
+    private fun getQuarterHours(minutes: Long): Double {
+        return (minutes / 60) + ((minutes / 15.0).roundToInt() * 15.0) / 60.0
+    }
+
     override fun start() {
-        root("timecard-web") {
-            div("Hello world")
-            // TODO
+        TimeEntriesState.load()
+
+        root("kvapp").bind(TimeEntriesState.onModified) { timeEntries ->
+            vPanel {
+                val clockText = if (timeEntries.isClockedIn) {
+                    "out"
+                } else {
+                    "in"
+                }
+                button("Clear").onClick {
+                    timeEntries.clear()
+                    TimeEntriesState.save()
+                }
+                button("Clock $clockText").onClick {
+                    if (timeEntries.isClockedIn) {
+                        timeEntries.clockOut()
+                    } else {
+                        timeEntries.clockIn()
+                    }
+
+                    TimeEntriesState.save()
+                }
+
+                vPanel {
+                    val minutesWorked = timeEntries.calculateMinutesWorked()
+                    val quarterHoursWorked = getQuarterHours(minutesWorked)
+                    span("Hours worked: $quarterHoursWorked")
+
+                    val minutesOnBreak = timeEntries.calculateMinutesOnBreak()
+                    val quarterHoursOnBreak = getQuarterHours(minutesOnBreak)
+                    span("Hours on break: $quarterHoursOnBreak")
+                }
+
+                vPanel {
+                    for (entry in timeEntries.filterByDay()) {
+                        vPanel {
+                            span("IN: ${entry.start}")
+                            if (entry.end != null) {
+                                span("OUT: ${entry.end}")
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
