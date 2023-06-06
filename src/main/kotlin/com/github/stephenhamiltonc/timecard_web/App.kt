@@ -17,6 +17,8 @@ import io.kvision.panel.root
 import io.kvision.panel.vPanel
 import io.kvision.startApplication
 import io.kvision.state.bind
+import io.kvision.utils.perc
+import io.kvision.utils.px
 import kotlin.math.roundToInt
 
 class App : Application() {
@@ -28,7 +30,11 @@ class App : Application() {
         TimeEntriesState.load()
 
         root("kvapp").bind(TimeEntriesState.onModified) { timeEntries ->
-            vPanel {
+            vPanel(spacing = 12) {
+                marginLeft = 12.px
+                marginTop = 12.px
+                marginRight = 75.perc
+
                 val clockText = if (timeEntries.isClockedIn) {
                     "out"
                 } else {
