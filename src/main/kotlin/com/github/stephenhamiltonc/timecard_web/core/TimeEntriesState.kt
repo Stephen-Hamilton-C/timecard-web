@@ -3,12 +3,19 @@ package com.github.stephenhamiltonc.timecard_web.core
 import com.github.stephenhamiltonc.timecard.TimeEntries
 import io.kvision.state.ObservableValue
 import kotlinx.browser.localStorage
+import kotlin.browser.window
 
 private const val entriesStorageKey = "timeentries"
 
 object TimeEntriesState {
     var _timeEntries: TimeEntries = TimeEntries()
     val onModified = ObservableValue(_timeEntries)
+
+    init {
+        window.setInterval({
+            onModified.setState(_timeEntries)
+        }, 60000)
+    }
 
     fun load() {
         val entriesData = localStorage.getItem(entriesStorageKey)
