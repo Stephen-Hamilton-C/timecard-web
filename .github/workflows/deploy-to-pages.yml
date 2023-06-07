@@ -30,7 +30,7 @@ jobs:
       - name: Execute Gradle Build
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: build
+          arguments: build browserDistribution
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v1
         with:
