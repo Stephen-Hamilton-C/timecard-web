@@ -32,12 +32,9 @@ jobs:
         with:
           arguments: build
       - name: Upload Pages artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-pages-artifact@v1
         with:
-          name: github-pages
-          # TODO: Need to find exact path
           path: ./build/distributions/*
-          if-no-files-found: error
   deploy:
     # Add a dependency to the build job
     needs: build
