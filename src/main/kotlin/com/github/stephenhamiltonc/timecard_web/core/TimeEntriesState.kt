@@ -3,7 +3,7 @@ package com.github.stephenhamiltonc.timecard_web.core
 import com.github.stephenhamiltonc.timecard.TimeEntries
 import io.kvision.state.ObservableValue
 import kotlinx.browser.localStorage
-import kotlin.browser.window
+import kotlinx.browser.window
 
 private const val entriesStorageKey = "timeentries"
 
