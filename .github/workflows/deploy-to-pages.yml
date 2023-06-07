@@ -1,6 +1,9 @@
 name: Deploy to Pages
 run-name: ${{ github.actor }} triggered a Pages build
-on: [workflow_dispatch]
+on:
+  push:
+    branches:
+      - main
 permissions:
   contents: read
 
