@@ -15,7 +15,7 @@ object TimeEntriesState {
         window.setInterval({
             onModified.setState(_timeEntries)
             println("Interval update")
-        }, 1000)
+        }, 60000)
     }
 
     fun load() {
