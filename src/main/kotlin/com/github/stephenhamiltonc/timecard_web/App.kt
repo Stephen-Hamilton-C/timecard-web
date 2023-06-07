@@ -66,6 +66,9 @@ class App : Application() {
                     val minutesOnBreak = timeEntries.calculateMinutesOnBreak()
                     val quarterHoursOnBreak = getQuarterHours(minutesOnBreak)
                     span("Hours on break: $quarterHoursOnBreak")
+
+                    val expectedEndTime = timeEntries.calculateExpectedEndTime(8 * 60)
+                    span("Expected end time: $expectedEndTime")
                 }
 
                 vPanel {
