@@ -19,6 +19,8 @@ repositories {
 // Versions
 val kotlinVersion: String by System.getProperties()
 val kvisionVersion: String by System.getProperties()
+val timecardVersion: String by System.getProperties()
+val navigoKotlinVersion: String by System.getProperties()
 
 val webDir = file("src/main/web")
 
@@ -55,7 +57,8 @@ kotlin {
         implementation("io.kvision:kvision-toastify:$kvisionVersion")
         implementation("io.kvision:kvision-bootstrap-icons:$kvisionVersion")
         implementation("io.kvision:kvision-tabulator:$kvisionVersion")
-        implementation("com.github.stephenhamiltonc:timecard-lib:1.0.0")
+        implementation("io.kvision:kvision-routing-navigo:$kvisionVersion")
+        implementation("com.github.stephenhamiltonc:timecard-lib:$timecardVersion")
     }
     sourceSets["test"].dependencies {
         implementation(kotlin("test-js"))
