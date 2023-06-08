@@ -1,21 +1,11 @@
 package com.github.stephenhamiltonc.timecard_web
 
 import com.github.stephenhamiltonc.timecard_web.core.TimeEntriesState
-import io.kvision.Application
-import io.kvision.CoreModule
-import io.kvision.BootstrapModule
-import io.kvision.BootstrapCssModule
-import io.kvision.DatetimeModule
-import io.kvision.ToastifyModule
-import io.kvision.BootstrapIconsModule
-import io.kvision.TabulatorModule
-import io.kvision.TabulatorCssBootstrapModule
+import io.kvision.*
 import io.kvision.html.button
 import io.kvision.html.span
-import io.kvision.module
 import io.kvision.panel.root
 import io.kvision.panel.vPanel
-import io.kvision.startApplication
 import io.kvision.state.bind
 import io.kvision.utils.perc
 import io.kvision.utils.px
@@ -40,14 +30,11 @@ class App : Application() {
                 } else {
                     "in"
                 }
-                button("Clear").onClick {
-                    timeEntries.clear()
-                    TimeEntriesState.save()
-                }
                 button("Undo").onClick {
                     timeEntries.undo()
                     TimeEntriesState.save()
                 }
+
                 button("Clock $clockText").onClick {
                     if (timeEntries.isClockedIn) {
                         timeEntries.clockOut()
@@ -92,7 +79,6 @@ fun main() {
         module.hot,
         BootstrapModule,
         BootstrapCssModule,
-        DatetimeModule,
         ToastifyModule,
         BootstrapIconsModule,
         TabulatorModule,

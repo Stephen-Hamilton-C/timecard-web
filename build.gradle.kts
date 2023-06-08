@@ -52,7 +52,6 @@ kotlin {
     sourceSets["main"].dependencies {
         implementation("io.kvision:kvision:$kvisionVersion")
         implementation("io.kvision:kvision-bootstrap:$kvisionVersion")
-        implementation("io.kvision:kvision-datetime:$kvisionVersion")
         implementation("io.kvision:kvision-toastify:$kvisionVersion")
         implementation("io.kvision:kvision-bootstrap-icons:$kvisionVersion")
         implementation("io.kvision:kvision-tabulator:$kvisionVersion")
