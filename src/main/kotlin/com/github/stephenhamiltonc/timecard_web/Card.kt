@@ -19,12 +19,10 @@ class Card(header: String = "", title: String = "", contentBuilder: (P.() -> Uni
             if(header.isNotEmpty()) {
                 div(header, className = "card-header")
             }
-            div(className = "card-body") {
-                if(title.isNotEmpty()) {
-                    h5(title, className = "card-title")
-                }
-                p(className = "card-text", init = contentBuilder)
+            if(title.isNotEmpty()) {
+                h5(title, className = "card-title")
             }
+            p(className = "card-text", init = contentBuilder)
         }
     }
 }
