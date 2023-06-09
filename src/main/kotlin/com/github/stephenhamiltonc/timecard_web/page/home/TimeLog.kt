@@ -14,6 +14,8 @@ import io.kvision.utils.px
 
 class TimeLog(timeEntries: TimeEntries) : SimplePanel() {
     init {
+        marginBottom = 12.px
+
         if(timeEntries.entries.isNotEmpty()) {
             card() {
                 padding = 12.px
