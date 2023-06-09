@@ -1,6 +1,6 @@
 name: Gradle Build
 run-name: ${{ github.actor }} pushed a new commit
-on: [push, pull_request]
+on: [push]
 permissions:
   contents: read
 
