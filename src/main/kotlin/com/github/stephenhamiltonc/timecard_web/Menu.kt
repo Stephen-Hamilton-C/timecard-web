@@ -7,6 +7,7 @@ import io.kvision.panel.SideTabSize
 import io.kvision.panel.TabPosition
 import io.kvision.panel.VPanel
 import io.kvision.panel.tabPanel
+import io.kvision.utils.px
 
 class Menu : VPanel(className = "tc-menu") {
     init {
@@ -14,8 +15,11 @@ class Menu : VPanel(className = "tc-menu") {
             tabPosition = TabPosition.LEFT,
             sideTabSize = SideTabSize.SIZE_1
         ) {
-            addTab("Home", HomePage(), "fa-bars", route = "/")
-            addTab("Settings", SettingsPage(), "fa-edit", route = "/settings")
+            marginLeft = 6.px
+            marginRight = 6.px
+
+            addTab("Home", HomePage(), route = "/")
+            addTab("Settings", SettingsPage(), route = "/settings")
         }
     }
 }
