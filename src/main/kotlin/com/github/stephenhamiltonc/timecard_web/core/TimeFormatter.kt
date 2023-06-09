@@ -1,9 +1,6 @@
 package com.github.stephenhamiltonc.timecard_web.core
 
-import kotlinx.datetime.Instant
-import kotlinx.datetime.LocalTime
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import kotlinx.datetime.*
 import kotlin.math.roundToInt
 
 fun Long.formatMinutes(): String {
@@ -11,6 +8,12 @@ fun Long.formatMinutes(): String {
     val quarterHoursWorked = ((this / 15.0).roundToInt() * 15.0) / 60.0
     val s = if(quarterHoursWorked != 1.0) "s" else ""
     return "$quarterHoursWorked hour$s"
+}
+
+fun Instant.formatWithDate(): String {
+    val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
+    val truncatedDateTime = LocalDateTime(datetime.year, datetime.month, datetime.dayOfMonth, datetime.hour, datetime.minute)
+    return truncatedDateTime.toString().replace('T', ' ')
 }
 
 fun Instant.format(): String {
