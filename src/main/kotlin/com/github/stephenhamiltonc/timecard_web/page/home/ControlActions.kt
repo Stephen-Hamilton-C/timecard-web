@@ -19,7 +19,6 @@ class ControlActions(timeEntries: TimeEntries) : HPanel(justify = JustifyContent
             marginRight = 6.px
         }
         undoButton.onClick {
-
             timeEntries.undo()
             TimeEntriesState.save()
         }
