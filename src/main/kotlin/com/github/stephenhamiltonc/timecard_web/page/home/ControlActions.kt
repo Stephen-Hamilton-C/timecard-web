@@ -1,47 +1,47 @@
 package com.github.stephenhamiltonc.timecard_web.page.home
 
-import com.github.stephenhamiltonc.timecard.TimeEntries
-import com.github.stephenhamiltonc.timecard_web.core.TimeEntriesState
+import com.github.stephenhamiltonc.timecard.Timecard
+import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import io.kvision.core.Container
 import io.kvision.core.JustifyContent
 import io.kvision.html.button
 import io.kvision.panel.HPanel
 import io.kvision.utils.px
 
-class ControlActions(timeEntries: TimeEntries) : HPanel(justify = JustifyContent.END) {
+class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) {
     init {
-        val clockText = if(timeEntries.isClockedIn) "out" else "in"
+        val clockText = if(timecard.isClockedIn) "out" else "in"
         val undoButton = button(
             text = "Undo",
-            disabled = timeEntries.entries.isEmpty(),
+            disabled = timecard.entries.isEmpty(),
             className = "btn-secondary",
         ) {
             marginRight = 6.px
         }
         undoButton.onClick {
-            timeEntries.undo()
-            TimeEntriesState.save()
+            timecard.undo()
+            TimecardState.save()
         }
 
         button(
             text = "Clock $clockText",
-            className = if(timeEntries.isClockedIn) {
+            className = if(timecard.isClockedIn) {
                 "btn-danger"
             } else {
                 "btn-success"
             }
         ).onClick {
-            if(timeEntries.isClockedIn) {
-                timeEntries.clockOut()
+            if(timecard.isClockedIn) {
+                timecard.clockOut()
             } else {
-                timeEntries.clockIn()
+                timecard.clockIn()
             }
 
-            TimeEntriesState.save()
+            TimecardState.save()
         }
     }
 }
 
-fun Container.controlActions(timeEntries: TimeEntries): ControlActions {
-    return ControlActions(timeEntries).also { add(it) }
+fun Container.controlActions(timecard: Timecard): ControlActions {
+    return ControlActions(timecard).also { add(it) }
 }
