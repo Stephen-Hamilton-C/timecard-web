@@ -1,5 +1,7 @@
 package com.github.stephenhamiltonc.timecard_web
 
+import com.github.stephenhamiltonc.timecard_web.core.Theme
+import com.github.stephenhamiltonc.timecard_web.core.Themes
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import io.kvision.*
 import io.kvision.panel.root
@@ -11,6 +13,10 @@ import io.kvision.toast.ToastPosition
 class App : Application() {
     init {
         Routing.init()
+        when(Theme.currentTheme) {
+            Themes.LIGHT -> require("themes/bootstrap.flatly.min.css")
+            Themes.DARK -> require("themes/bootstrap.darkly.min.css")
+        }
     }
 
     override fun start() {
