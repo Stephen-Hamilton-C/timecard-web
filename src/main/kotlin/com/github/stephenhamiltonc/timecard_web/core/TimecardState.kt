@@ -4,6 +4,8 @@ import com.github.stephenhamiltonc.timecard.Timecard
 import io.kvision.state.ObservableValue
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 private const val timecardStorageKey = "timecard"
 
@@ -23,12 +25,12 @@ object TimecardState {
         val timecardData = localStorage.getItem(timecardStorageKey)
         _timecard = try {
             if(timecardData != null) {
-                Timecard.fromString(timecardData)
+                Json.decodeFromString<Timecard>(timecardData)
             } else {
                 Timecard()
             }
         } catch(e: Exception) {
-            console.error("Could not read Timecard! Timecard data: $timecardData")
+            console.error("Could not read Timecard! Timecard data:\n$timecardData")
             success = false
             Timecard()
         }
@@ -38,7 +40,7 @@ object TimecardState {
     }
 
     fun save() {
-        val timecardData = _timecard.toString()
+        val timecardData = Json.encodeToString(_timecard)
         println("Saving Timecard as $timecardData")
         localStorage.setItem(timecardStorageKey, timecardData)
 
