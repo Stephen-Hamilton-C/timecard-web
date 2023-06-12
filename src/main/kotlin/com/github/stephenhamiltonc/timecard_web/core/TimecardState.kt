@@ -10,7 +10,7 @@ import kotlinx.serialization.json.Json
 private const val timecardStorageKey = "timecard"
 
 object TimecardState {
-    var _timecard: Timecard = Timecard()
+    var _timecard = Timecard()
     val onModified = ObservableValue(_timecard)
 
     init {
@@ -34,6 +34,11 @@ object TimecardState {
             success = false
             Timecard()
         }
+
+
+        // Clean up old entries
+        // TODO: Use a setting to determine how far back to clean
+        _timecard.clean()
 
         onModified.setState(_timecard)
         return success
