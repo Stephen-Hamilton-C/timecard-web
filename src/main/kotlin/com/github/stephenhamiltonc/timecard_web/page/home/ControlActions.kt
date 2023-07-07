@@ -52,9 +52,12 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
             }
 
             button(
-                // TODO: Replace this with an actual down arrow icon
-                text "V",
-                className = clockClassName
+                text = "",
+                classes = setOf(
+                    clockClassName,
+                    "bi",
+                    "bi-chevron-down"
+                )
             ).onClick {
                 // Open datetime picker
                 println("Open datetime picker")
