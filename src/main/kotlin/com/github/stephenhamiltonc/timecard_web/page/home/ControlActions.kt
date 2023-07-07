@@ -7,6 +7,11 @@ import io.kvision.core.JustifyContent
 import io.kvision.html.button
 import io.kvision.panel.HPanel
 import io.kvision.utils.px
+import io.kvision.toolbar.ButtonGroup
+import io.kvision.state.ObservableValue
+import io.kvision.form.time.DateTimeInput
+import kotlinx.datetime.Instant
+import kotlinx.datetime.Clock
 
 class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) {
     init {
@@ -23,21 +28,37 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
             TimecardState.save()
         }
 
-        button(
-            text = "Clock $clockText",
-            className = if(timecard.isClockedIn) {
-                "btn-danger"
-            } else {
-                "btn-success"
-            }
-        ).onClick {
-            if(timecard.isClockedIn) {
-                timecard.clockOut()
-            } else {
-                timecard.clockIn()
+        val clockClassName = if(timecard.isClockedIn) {
+            "btn-danger"
+        } else {
+            "btn-success"
+        }
+
+        val clockTimeState: ObservableValue<Instant?> = ObservableValue(null)
+        buttonGroup.bind(clockTimeState) { clockTime ->
+            val clockTimeText = if(clockTime == null) "" else " at $clockTime"
+            button(
+                text = "Clock $clockText$clockTimeText",
+                className = clockClassName
+            ).onClick {
+                val time = clockTime ?: Clock.System.now()
+                if(timecard.isClockedIn) {
+                    timecard.clockOut()
+                } else {
+                    timecard.clockIn()
+                }
+
+                TimecardState.save()
             }
 
-            TimecardState.save()
+            button(
+                // TODO: Replace this with an actual down arrow icon
+                text "V",
+                className = clockClassName
+            ).onClick {
+                // Open datetime picker
+                println("Open datetime picker")
+            }
         }
     }
 }
