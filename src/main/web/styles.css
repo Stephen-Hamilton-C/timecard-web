@@ -5,3 +5,7 @@
 .toast-close {
     opacity: 1;
 }
+
+.nav-tabs {
+    height: 100vh;
+}

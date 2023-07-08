@@ -8,6 +8,7 @@ import io.kvision.panel.TabPosition
 import io.kvision.panel.VPanel
 import io.kvision.panel.tabPanel
 import io.kvision.utils.px
+import io.kvision.utils.vh
 
 class Menu : VPanel(className = "tc-menu") {
     init {
@@ -17,6 +18,7 @@ class Menu : VPanel(className = "tc-menu") {
         ) {
             marginLeft = 6.px
             marginRight = 6.px
+            height = 100.vh
 
             addTab("Home", HomePage(), route = "/")
             addTab("Settings", SettingsPage(), route = "/settings")
