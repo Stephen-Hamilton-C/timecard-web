@@ -20,11 +20,10 @@ class TimeLog(timecard: Timecard) : SimplePanel() {
 
                 val exporter = LogExporter(timecard)
                 button(
-                    text = "Export Log",
-                    onClick = {
-                        exporter.exportCSV()
-                    }
-                )
+                    text = "Export Log"
+                ).onClick {
+                    exporter.exportCSV()
+                }
 
                 table(className = "table table-striped") {
                     tbody {
