@@ -3,6 +3,7 @@ package com.github.stephenhamiltonc.timecard_web.page.home
 import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.card
 import com.github.stephenhamiltonc.timecard_web.core.formatWithDate
+import com.github.stephenhamiltonc.timecard_web.core.LogExporter
 import io.kvision.core.Container
 import io.kvision.html.*
 import io.kvision.panel.SimplePanel
@@ -16,6 +17,14 @@ class TimeLog(timecard: Timecard) : SimplePanel() {
             card() {
                 padding = 12.px
                 paddingBottom = 0.px
+
+                val exporter = LogExporter(timecard)
+                button(
+                    text = "Export Log"
+                    onClick = {
+                        exporter.exportCSV()
+                    }
+                )
 
                 table(className = "table table-striped") {
                     tbody {
