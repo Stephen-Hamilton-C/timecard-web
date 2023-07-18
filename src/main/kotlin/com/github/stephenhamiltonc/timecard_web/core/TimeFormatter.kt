@@ -2,24 +2,57 @@ package com.github.stephenhamiltonc.timecard_web.core
 
 import kotlinx.datetime.*
 import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 
-fun Long.formatMinutes(): String {
-    return Settings.timeFormat.formatter(this)
+/**
+ * Converts the given 24-hour value to a 12-hour value
+ */
+private fun formatHour(hour: Int): Int {
+    return if(Settings.militaryTime) {
+        hour
+    } else {
+        if(hour == 0) {
+            12
+        } else if(hour > 12) {
+            hour - 12
+        } else {
+            hour
+        }
+    }
+}
+
+/**
+ * Gets the meridiem string for the given 24-hour value, if applicable
+ */
+private fun getMeridiem(hour: Int): String {
+    return if(!Settings.militaryTime) {
+        if(hour >= 12) {
+            " PM"
+        } else {
+            " AM"
+        }
+    } else {
+        ""
+    }
+}
+
+fun Long.formatMinutes(format: TimeFormat = Settings.timeFormat): String {
+    return format.formatter(this)
 }
 
 fun Instant.formatWithDate(): String {
-    // TODO: Check for militaryTime before formatting
     val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
-    val truncatedDateTime = LocalDateTime(datetime.year, datetime.month, datetime.dayOfMonth, datetime.hour, datetime.minute)
-    return truncatedDateTime.toString().replace('T', ' ')
+    val truncatedDateTime = LocalDateTime(datetime.year, datetime.month, datetime.dayOfMonth, formatHour(datetime.hour), datetime.minute)
+    val meridiem = getMeridiem(datetime.hour)
+    return "${truncatedDateTime.toString().replace('T', ' ')}$meridiem"
 }
 
 fun Instant.format(): String {
-    // TODO: Check for militaryTime before formatting
     val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
     val time = datetime.time
-    val truncatedTime = LocalTime(time.hour, time.minute)
-    return truncatedTime.toString()
+    val truncatedTime = LocalTime(formatHour(time.hour), time.minute)
+    val meridiem = getMeridiem(time.hour)
+    return "$truncatedTime$meridiem"
 }
 
 fun Long.separateHoursMinutes(): Pair<Int, Int> {

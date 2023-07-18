@@ -21,6 +21,7 @@ class TimeLog(timecard: Timecard) : SimplePanel() {
 
                 table(className = "table table-striped") {
                     tbody {
+                        // TODO: Make a header for each day
                         for (entry in timecard.entries) {
                             tr {
                                 td("IN: ${entry.start.formatWithDate()}")

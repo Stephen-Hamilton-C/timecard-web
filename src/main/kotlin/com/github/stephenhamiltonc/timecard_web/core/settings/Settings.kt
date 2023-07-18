@@ -11,11 +11,9 @@ private const val minutesInWorkDayKey = "settings.minutesInWorkDay"
 object Settings {
     // TODO: Implement
     var darkTheme by LocalStorageProperty(darkThemeKey, true, Boolean.serializer())
-    // TODO: Implement
     var militaryTime by LocalStorageProperty(militaryTimeKey, false, Boolean.serializer())
     // TODO: Implement
     var entryLifespan by LocalStorageProperty(entryLifespanKey, EntryLifespan.ONE_MONTH, EntryLifespan.serializer())
-    // TODO: Implement
     var timeFormat by LocalStorageProperty(timeFormatKey, TimeFormat.QUARTER_HOUR, TimeFormat.serializer())
     var minutesInWorkDay by LocalStorageProperty(minutesInWorkDayKey, (8 * 60), Long.serializer())
 }
