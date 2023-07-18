@@ -149,6 +149,7 @@ class SettingsPage() : SimplePanel() {
                     try {
                         val newTimecard = Json.decodeFromString<Timecard>(data)
                         TimecardState.import(newTimecard)
+                        TimecardState.save()
                         println("Finished importing Timecard")
                         Toast.success(
                             "Successfully imported Timecard data!",
