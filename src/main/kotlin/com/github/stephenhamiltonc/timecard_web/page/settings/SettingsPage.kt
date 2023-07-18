@@ -10,7 +10,7 @@ import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 import com.github.stephenhamiltonc.timecard_web.core.generalToastOptions
 import downloadAsFile
 import io.kvision.core.Display
-import io.kvision.form.check.checkBox
+import io.kvision.form.check.switch
 import io.kvision.form.number.spinner
 import io.kvision.form.select.select
 import io.kvision.html.*
@@ -43,14 +43,14 @@ class SettingsPage() : SimplePanel() {
     private fun settingsCard() = Card(title = "Settings") {
         paddingTop = 12.px
 
-        checkBox(value = Settings.darkTheme) {
+        switch(value = Settings.darkTheme) {
             label = "Dark Theme"
             addCssClass("user-select-none")
         }.subscribe {
             Settings.darkTheme = it
         }
 
-        checkBox(value = Settings.militaryTime) {
+        switch(value = Settings.militaryTime) {
             label = "24-Hour Time"
             marginBottom = 12.px
             addCssClass("user-select-none")
