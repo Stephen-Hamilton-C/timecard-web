@@ -9,6 +9,7 @@ import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
 import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 import com.github.stephenhamiltonc.timecard_web.core.generalToastOptions
 import downloadAsFile
+import io.kvision.core.Display
 import io.kvision.form.check.checkBox
 import io.kvision.form.number.spinner
 import io.kvision.form.select.select
@@ -90,12 +91,25 @@ class SettingsPage() : SimplePanel() {
     }
 
     private fun dataCard(timecard: Timecard) = Card(title = "Timecard Data") {
-        button("Import Timecard Data").onClick { importTimecard() }
-        button("Export Timecard Data").onClick { exportTimecard(timecard) }
+        val btnSpacing = 8.px
+
+        button("Import Timecard Data") {
+            display = Display.BLOCK
+            marginTop = 12.px
+            marginBottom = btnSpacing
+        }.onClick { importTimecard() }
+
+        button("Export Timecard Data"){
+            display = Display.BLOCK
+            marginBottom = btnSpacing
+        }.onClick { exportTimecard(timecard) }
+
         button(
             text = "Clear Timecard Data",
             style = ButtonStyle.DANGER
-        ).onClick {
+        ) {
+            display = Display.BLOCK
+        }.onClick {
             Confirm.show(
                 caption = "Clear Timecard Data",
                 text = "Are you sure you want to clear <em>all</em> your Timecard data? " +
