@@ -3,34 +3,28 @@ package com.github.stephenhamiltonc.timecard_web.core
 import kotlinx.datetime.*
 import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
 
-fun Long.formatMinutes(): String {
-    return Settings.timeFormat.formatter(this)
-}
-
-fun Instant.formatWithDate(): String {
-    // TODO: Check for militaryTime before formatting
-    val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
-    val truncatedDateTime = LocalDateTime(datetime.year, datetime.month, datetime.dayOfMonth, datetime.hour, datetime.minute)
-    return truncatedDateTime.toString().replace('T', ' ')
-}
-
-fun Instant.format(): String {
-    val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
-    val time = datetime.time
-    val hour = if(Settings.militaryTime) {
-        time.hour
+/**
+ * Converts the given 24-hour value to a 12-hour value
+ */
+private fun formatHour(hour: Int): Int {
+    return if(Settings.militaryTime) {
+        hour
     } else {
-        if(time.hour == 0) {
+        if(hour == 0) {
             12
-        } else if(time.hour > 12) {
-            time.hour - 12
+        } else if(hour > 12) {
+            hour - 12
         } else {
-            time.hour
+            hour
         }
     }
+}
 
-    val truncatedTime = LocalTime(hour, time.minute)
-    val meridiem = if(!Settings.militaryTime) {
+/**
+ * Gets the meridiem string for the given 24-hour value, if applicable
+ */
+private fun getMeridiem(hour: Int): String {
+    return if(!Settings.militaryTime) {
         if(time.hour >= 12) {
             " PM"
         } else {
@@ -39,6 +33,24 @@ fun Instant.format(): String {
     } else {
         ""
     }
+}
+
+fun Long.formatMinutes(): String {
+    return Settings.timeFormat.formatter(this)
+}
+
+fun Instant.formatWithDate(): String {
+    val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
+    val truncatedDateTime = LocalDateTime(datetime.year, datetime.month, datetime.dayOfMonth, formatHour(datetime.hour), datetime.minute)
+    val meridiem = getMeridiem(datetime.hour)
+    return "${truncatedDateTime.toString().replace('T', ' ')}$meridiem"
+}
+
+fun Instant.format(): String {
+    val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
+    val time = datetime.time
+    val truncatedTime = LocalTime(formatHour(time.hour), time.minute)
+    val meridiem = getMeridiem(time.hour)
     return "$truncatedTime$meridiem"
 }
 
