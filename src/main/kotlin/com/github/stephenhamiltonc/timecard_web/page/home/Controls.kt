@@ -9,6 +9,7 @@ import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 import io.kvision.core.Container
 import io.kvision.core.TooltipOptions
 import io.kvision.core.enableTooltip
+import io.kvision.core.Placement
 import io.kvision.html.br
 import io.kvision.html.div
 import io.kvision.html.span
@@ -30,6 +31,7 @@ class Controls(timecard: Timecard) : SimplePanel() {
                     title = minutesWorked.formatMinutes(TimeFormat.HOURS_MINUTES),
                     delay = 500,
                     hideDelay = 100,
+                    placement = Placement.RIGHT,
                 ))
             }
             br()
@@ -44,6 +46,7 @@ class Controls(timecard: Timecard) : SimplePanel() {
                     title = minutesOnBreak.formatMinutes(TimeFormat.HOURS_MINUTES),
                     delay = 500,
                     hideDelay = 100,
+                    placement = Placement.RIGHT,
                 ))
             }
             br()
