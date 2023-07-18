@@ -4,6 +4,7 @@ import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.card
 import com.github.stephenhamiltonc.timecard_web.core.format
 import com.github.stephenhamiltonc.timecard_web.core.formatMinutes
+import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
 import io.kvision.core.Container
 import io.kvision.html.br
 import io.kvision.html.div
@@ -32,7 +33,7 @@ class Controls(timecard: Timecard) : SimplePanel() {
 
             span {
                 +"Expected end time: "
-                val expectedEndTime = timecard.calculateExpectedEndTime(8 * 60)
+                val expectedEndTime = timecard.calculateExpectedEndTime(Settings.minutesInWorkDay)
                 span(expectedEndTime?.format())
             }
             br()

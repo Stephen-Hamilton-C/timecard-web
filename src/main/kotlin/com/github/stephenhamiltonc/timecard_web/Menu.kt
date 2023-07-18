@@ -1,9 +1,11 @@
 package com.github.stephenhamiltonc.timecard_web
 
+import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.page.credits.CreditsPage
 import com.github.stephenhamiltonc.timecard_web.page.home.HomePage
 import com.github.stephenhamiltonc.timecard_web.page.settings.SettingsPage
 import io.kvision.core.Container
+import io.kvision.core.onClick
 import io.kvision.panel.SideTabSize
 import io.kvision.panel.TabPosition
 import io.kvision.panel.VPanel
@@ -26,6 +28,10 @@ class Menu : VPanel(className = "tc-menu") {
             addTab("Home", HomePage(), route = "/")
             addTab("Settings", SettingsPage(), route = "/settings")
             addTab("Credits", CreditsPage(), route = "/credits")
+        }.getTabs().forEach {
+            it.onClick {
+                TimecardState.reload()
+            }
         }
     }
 }

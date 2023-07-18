@@ -46,4 +46,14 @@ object TimecardState {
 
         onModified.setState(_timecard)
     }
+
+    fun reload() {
+        println("Reloading state...")
+        onModified.setState(_timecard)
+    }
+
+    fun import(timecard: Timecard) {
+        _timecard = timecard
+        onModified.setState(_timecard)
+    }
 }
