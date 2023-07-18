@@ -5,6 +5,7 @@ import com.github.stephenhamiltonc.timecard_web.card
 import com.github.stephenhamiltonc.timecard_web.core.format
 import com.github.stephenhamiltonc.timecard_web.core.formatMinutes
 import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 import io.kvision.core.Container
 import io.kvision.core.TooltipOptions
 import io.kvision.core.enableTooltip
