@@ -15,11 +15,31 @@ fun Instant.formatWithDate(): String {
 }
 
 fun Instant.format(): String {
-    // TODO: Check for militaryTime before formatting
     val datetime = this.toLocalDateTime(TimeZone.currentSystemDefault())
     val time = datetime.time
-    val truncatedTime = LocalTime(time.hour, time.minute)
-    return truncatedTime.toString()
+    val hour = if(Settings.militaryTime) {
+        time.hour
+    } else {
+        if(time.hour == 0) {
+            12
+        } else if(time.hour > 12) {
+            time.hour - 12
+        } else {
+            time.hour
+        }
+    }
+
+    val truncatedTime = LocalTime(hour, time.minute)
+    val meridiem = if(!Settings.militaryTime) {
+        if(time.hour >= 12) {
+            " PM"
+        } else {
+            " AM"
+        }
+    } else {
+        ""
+    }
+    return "$truncatedTime$meridiem"
 }
 
 fun Long.separateHoursMinutes(): Pair<Int, Int> {
