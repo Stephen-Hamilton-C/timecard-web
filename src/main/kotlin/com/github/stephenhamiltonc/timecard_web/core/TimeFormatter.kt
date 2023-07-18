@@ -1,7 +1,6 @@
 package com.github.stephenhamiltonc.timecard_web.core
 
 import kotlinx.datetime.*
-import kotlin.math.roundToInt
 import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
 
 fun Long.formatMinutes(): String {
@@ -23,7 +22,7 @@ fun Instant.format(): String {
     return truncatedTime.toString()
 }
 
-fun Long.separateHoursMinutes(): Pair<Int, Int>
+fun Long.separateHoursMinutes(): Pair<Int, Int> {
     val hours = (this / 60.0).toInt()
     val minutes = this.mod(60)
     return Pair(hours, minutes)
