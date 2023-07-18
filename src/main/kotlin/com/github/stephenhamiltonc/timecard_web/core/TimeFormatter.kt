@@ -2,9 +2,10 @@ package com.github.stephenhamiltonc.timecard_web.core
 
 import kotlinx.datetime.*
 import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 
-fun Long.formatMinutes(): String {
-    return Settings.timeFormat.formatter(this)
+fun Long.formatMinutes(format: TimeFormat = Settings.timeFormat): String {
+    return format.formatter(this)
 }
 
 fun Instant.formatWithDate(): String {

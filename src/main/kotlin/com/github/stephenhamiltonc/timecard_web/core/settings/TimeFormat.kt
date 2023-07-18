@@ -7,9 +7,10 @@ import kotlinx.serialization.Serializable
 import pluralize
 
 @Serializable
-enum class TimeFormat(val displayName: String, val formatter: (Long) -> String) {
+enum class TimeFormat(val displayName: String, val tooltip: Boolean, val formatter: (Long) -> String) {
     QUARTER_HOUR(
         "Quarter Hour",
+        true,
         { totalMinutes: Long ->
             val quarterHoursWorked = ((totalMinutes / 15.0).roundToInt() * 15.0) / 60.0
             "$quarterHoursWorked hours"
@@ -17,6 +18,7 @@ enum class TimeFormat(val displayName: String, val formatter: (Long) -> String) 
     ),
     HALF_HOUR(
         "Half Hour",
+        true,
         { totalMinutes: Long -> 
             val halfHoursWorked = ((totalMinutes / 30.0).roundToInt() * 30.0) / 60.0
             "$halfHoursWorked hours"
@@ -24,6 +26,7 @@ enum class TimeFormat(val displayName: String, val formatter: (Long) -> String) 
     ),
     HOURS_MINUTES(
         "X hours, Y minutes",
+        false,
         { totalMinutes: Long -> 
             val (hours, minutes) = totalMinutes.separateHoursMinutes()
             "$hours ${"hour".pluralize(hours)}, $minutes ${"minute".pluralize(minutes)}"
@@ -31,6 +34,7 @@ enum class TimeFormat(val displayName: String, val formatter: (Long) -> String) 
     ),
     HR_MIN(
         "X hrs, Y mins",
+        false,
         { totalMinutes: Long -> 
             val (hours, minutes) = totalMinutes.separateHoursMinutes()
             "$hours ${"hr".pluralize(hours)}, $minutes ${"min".pluralize(minutes)}"
@@ -38,6 +42,7 @@ enum class TimeFormat(val displayName: String, val formatter: (Long) -> String) 
     ),
     CLOCK(
         "hh:mm",
+        false,
         { totalMinutes: Long -> 
             val (hours, minutes) = totalMinutes.separateHoursMinutes()
             val paddedHours = hours.toString().padStart(2, '0')
