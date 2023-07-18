@@ -1,27 +1,27 @@
 package com.github.stephenhamiltonc.timecard_web.page.home
 
-import com.github.stephenhamiltonc.timecard.TimeEntries
+import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.card
-import com.github.stephenhamiltonc.timecard_web.core.TimeEntriesState
-import com.github.stephenhamiltonc.timecard_web.core.format
 import com.github.stephenhamiltonc.timecard_web.core.formatWithDate
 import io.kvision.core.Container
-import io.kvision.core.TextAlign
 import io.kvision.html.*
 import io.kvision.panel.SimplePanel
-import io.kvision.state.bind
 import io.kvision.utils.px
 
-class TimeLog(timeEntries: TimeEntries) : SimplePanel() {
+class TimeLog(timecard: Timecard) : SimplePanel() {
     init {
-        if(timeEntries.entries.isNotEmpty()) {
+        marginBottom = 12.px
+
+        if(timecard.entries.isNotEmpty()) {
             card() {
                 padding = 12.px
                 paddingBottom = 0.px
 
+                logActions(timecard)
+
                 table(className = "table table-striped") {
                     tbody {
-                        for (entry in timeEntries.entries) {
+                        for (entry in timecard.entries) {
                             tr {
                                 td("IN: ${entry.start.formatWithDate()}")
                                 td {
@@ -38,6 +38,6 @@ class TimeLog(timeEntries: TimeEntries) : SimplePanel() {
     }
 }
 
-fun Container.timeLog(timeEntries: TimeEntries): TimeLog {
-    return TimeLog(timeEntries).also { add(it) }
+fun Container.timeLog(timecard: Timecard): TimeLog {
+    return TimeLog(timecard).also { add(it) }
 }

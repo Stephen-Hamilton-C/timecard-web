@@ -1,6 +1,6 @@
 package com.github.stephenhamiltonc.timecard_web.page.home
 
-import com.github.stephenhamiltonc.timecard_web.core.TimeEntriesState
+import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import io.kvision.html.div
 import io.kvision.panel.SimplePanel
 import io.kvision.state.bind
@@ -10,10 +10,10 @@ class HomePage : SimplePanel("tc-home") {
     init {
         marginTop = 12.px
 
-        bind(TimeEntriesState.onModified) { timeEntries ->
-            controls(timeEntries)
-            div(className = "my-4")
-            timeLog(timeEntries)
+        bind(TimecardState.onModified) { timecard ->
+            controls(timecard)
+            div(className = "mt-4")
+            timeLog(timecard)
         }
     }
 }
