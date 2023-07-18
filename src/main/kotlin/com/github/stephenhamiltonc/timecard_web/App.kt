@@ -1,7 +1,7 @@
 package com.github.stephenhamiltonc.timecard_web
 
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
-import com.github.stephenhamiltonc.timecard_web.core.dangerToastOptions
+import com.github.stephenhamiltonc.timecard_web.core.persistentToastOptions
 import io.kvision.*
 import io.kvision.panel.root
 import io.kvision.routing.Routing
@@ -17,7 +17,7 @@ class App : Application() {
         if(!loadSuccess) {
             Toast.danger(
                 "Error loading Timecard data! Check console for raw data dump.",
-                options = dangerToastOptions
+                options = persistentToastOptions
             )
         }
 
