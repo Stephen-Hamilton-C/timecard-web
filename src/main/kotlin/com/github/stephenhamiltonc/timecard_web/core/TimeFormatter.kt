@@ -25,7 +25,7 @@ private fun formatHour(hour: Int): Int {
  */
 private fun getMeridiem(hour: Int): String {
     return if(!Settings.militaryTime) {
-        if(time.hour >= 12) {
+        if(hour >= 12) {
             " PM"
         } else {
             " AM"
