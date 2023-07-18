@@ -1,6 +1,10 @@
 package com.github.stephenhamiltonc.timecard_web.core.settings
 
-enum class LogLifespan(val days: Int, val displayName: String) {
+import io.kvision.core.StringPair
+import kotlinx.serialization.Serializable
+
+@Serializable
+enum class EntryLifespan(val days: Int, val displayName: String) {
     ONE_DAY(1, "1 day"),
     THREE_DAYS(3, "3 days"),
     ONE_WEEK(7, "1 week"),
@@ -12,8 +16,8 @@ enum class LogLifespan(val days: Int, val displayName: String) {
     FOREVER(-1, "Forever");
 
     companion object {
-        fun getDisplayNames(): List<String> {
-            return values().map { it.displayName }
+        fun getElements(): List<StringPair> {
+            return values().map { it.toString() to it.displayName }
         }
 
         fun valueOfOrNull(type: String?): EntryLifespan? {

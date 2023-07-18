@@ -2,6 +2,9 @@ package com.github.stephenhamiltonc.timecard_web.core.settings
 
 import kotlin.math.roundToInt
 import com.github.stephenhamiltonc.timecard_web.core.separateHoursMinutes
+import io.kvision.core.StringPair
+import kotlinx.serialization.Serializable
+import pluralize
 
 @Serializable
 enum class TimeFormat(val displayName: String, val formatter: (Long) -> String) {
@@ -44,8 +47,8 @@ enum class TimeFormat(val displayName: String, val formatter: (Long) -> String) 
     );
 
     companion object {
-        fun getDisplayNames(): List<String> {
-            return values().map { it.displayName }
+        fun getElements(): List<StringPair> {
+            return values().map { it.toString() to it.displayName }
         }
 
         fun valueOfOrNull(type: String?): TimeFormat? {
