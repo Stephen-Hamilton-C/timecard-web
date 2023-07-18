@@ -17,6 +17,8 @@ class TimeLog(timecard: Timecard) : SimplePanel() {
                 padding = 12.px
                 paddingBottom = 0.px
 
+                logActions(timecard)
+
                 table(className = "table table-striped") {
                     tbody {
                         for (entry in timecard.entries) {
