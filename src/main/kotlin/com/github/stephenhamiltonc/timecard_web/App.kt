@@ -23,6 +23,7 @@ class App : Application() {
 
         root("kvapp") {
             menu()
+            NotificationHandler.requestPermission()
         }
     }
 }
