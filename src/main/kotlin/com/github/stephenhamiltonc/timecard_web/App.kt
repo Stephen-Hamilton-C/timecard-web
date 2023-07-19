@@ -2,7 +2,7 @@ package com.github.stephenhamiltonc.timecard_web
 
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.core.persistentToastOptions
-import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import io.kvision.*
 import io.kvision.panel.root
 import io.kvision.routing.Routing
@@ -11,7 +11,7 @@ import io.kvision.toast.Toast
 class App : Application() {
     init {
         Routing.init()
-        if(Settings.darkTheme) {
+        if(Persistence.darkTheme) {
             require("themes/bootstrap.darkly.min.css")
         } else {
             require("themes/bootstrap.flatly.min.css")
