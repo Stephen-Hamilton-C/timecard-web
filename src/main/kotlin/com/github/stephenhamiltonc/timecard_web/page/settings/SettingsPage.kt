@@ -20,6 +20,7 @@ import io.kvision.state.bind
 import io.kvision.toast.Toast
 import io.kvision.utils.px
 import kotlinx.browser.document
+import kotlinx.browser.window
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
@@ -43,11 +44,17 @@ class SettingsPage() : SimplePanel() {
     private fun settingsCard() = Card(title = "Settings") {
         paddingTop = 12.px
 
-        switch(value = Settings.darkTheme) {
+        val darkThemeSwitch = switch(value = Settings.darkTheme) {
             label = "Dark Theme"
             addCssClass("user-select-none")
-        }.subscribe {
+        }
+        darkThemeSwitch.subscribe {
             Settings.darkTheme = it
+        }
+        darkThemeSwitch.onClick {
+            window.setTimeout({
+                window.location.reload()
+            }, 75)
         }
 
         switch(value = Settings.militaryTime) {
