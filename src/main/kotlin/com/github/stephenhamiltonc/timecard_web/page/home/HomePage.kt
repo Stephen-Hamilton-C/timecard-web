@@ -12,7 +12,7 @@ class HomePage : SimplePanel("tc-home") {
 
         bind(TimecardState.onModified) { timecard ->
             controls(timecard)
-            div(className = "my-4")
+            div(className = "mt-4")
             timeLog(timecard)
         }
     }

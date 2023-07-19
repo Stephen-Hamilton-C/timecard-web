@@ -4,7 +4,12 @@ import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.card
 import com.github.stephenhamiltonc.timecard_web.core.format
 import com.github.stephenhamiltonc.timecard_web.core.formatMinutes
+import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 import io.kvision.core.Container
+import io.kvision.core.TooltipOptions
+import io.kvision.core.enableTooltip
+import io.kvision.core.Placement
 import io.kvision.html.br
 import io.kvision.html.div
 import io.kvision.html.span
@@ -16,23 +21,39 @@ class Controls(timecard: Timecard) : SimplePanel() {
         card() {
             padding = 12.px
 
-            span {
+            val minutesWorked = timecard.calculateMinutesWorked()
+            val timeWorkedSpan = span {
                 +"Time worked: "
-                val minutesWorked = timecard.calculateMinutesWorked()
                 span(minutesWorked.formatMinutes(), className = "text-success")
+            }
+            if(Settings.timeFormat.tooltip) {
+                timeWorkedSpan.enableTooltip(TooltipOptions(
+                    title = minutesWorked.formatMinutes(TimeFormat.HOURS_MINUTES),
+                    delay = 500,
+                    hideDelay = 100,
+                    placement = Placement.RIGHT,
+                ))
             }
             br()
 
-            span {
+            val minutesOnBreak = timecard.calculateMinutesOnBreak()
+            val timeOnBreakSpan = span {
                 +"Time on break: "
-                val minutesOnBreak = timecard.calculateMinutesOnBreak()
                 span(minutesOnBreak.formatMinutes(), className = "text-danger")
+            }
+            if(Settings.timeFormat.tooltip) {
+                timeOnBreakSpan.enableTooltip(TooltipOptions(
+                    title = minutesOnBreak.formatMinutes(TimeFormat.HOURS_MINUTES),
+                    delay = 500,
+                    hideDelay = 100,
+                    placement = Placement.RIGHT,
+                ))
             }
             br()
 
             span {
                 +"Expected end time: "
-                val expectedEndTime = timecard.calculateExpectedEndTime(8 * 60)
+                val expectedEndTime = timecard.calculateExpectedEndTime(Settings.minutesInWorkDay)
                 span(expectedEndTime?.format())
             }
             br()
