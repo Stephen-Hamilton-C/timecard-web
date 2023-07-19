@@ -4,7 +4,7 @@ import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.card
 import com.github.stephenhamiltonc.timecard_web.core.format
 import com.github.stephenhamiltonc.timecard_web.core.formatMinutes
-import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 import io.kvision.core.Container
 import io.kvision.core.TooltipOptions
@@ -26,7 +26,7 @@ class Controls(timecard: Timecard) : SimplePanel() {
                 +"Time worked: "
                 span(minutesWorked.formatMinutes(), className = "text-success")
             }
-            if(Settings.timeFormat.tooltip) {
+            if(Persistence.timeFormat.tooltip) {
                 timeWorkedSpan.enableTooltip(TooltipOptions(
                     title = minutesWorked.formatMinutes(TimeFormat.HOURS_MINUTES),
                     delay = 500,
@@ -41,7 +41,7 @@ class Controls(timecard: Timecard) : SimplePanel() {
                 +"Time on break: "
                 span(minutesOnBreak.formatMinutes(), className = "text-danger")
             }
-            if(Settings.timeFormat.tooltip) {
+            if(Persistence.timeFormat.tooltip) {
                 timeOnBreakSpan.enableTooltip(TooltipOptions(
                     title = minutesOnBreak.formatMinutes(TimeFormat.HOURS_MINUTES),
                     delay = 500,
@@ -53,7 +53,7 @@ class Controls(timecard: Timecard) : SimplePanel() {
 
             span {
                 +"Expected end time: "
-                val expectedEndTime = timecard.calculateExpectedEndTime(Settings.minutesInWorkDay)
+                val expectedEndTime = timecard.calculateExpectedEndTime(Persistence.minutesInWorkDay)
                 span(expectedEndTime?.format())
             }
             br()

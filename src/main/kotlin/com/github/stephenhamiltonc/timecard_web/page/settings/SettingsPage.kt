@@ -5,7 +5,7 @@ import com.github.stephenhamiltonc.timecard_web.Card
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.core.persistentToastOptions
 import com.github.stephenhamiltonc.timecard_web.core.settings.EntryLifespan
-import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 import com.github.stephenhamiltonc.timecard_web.core.generalToastOptions
 import downloadAsFile
@@ -43,50 +43,50 @@ class SettingsPage() : SimplePanel() {
     private fun settingsCard() = Card(title = "Settings") {
         paddingTop = 12.px
 
-        switch(value = Settings.darkTheme) {
+        switch(value = Persistence.darkTheme) {
             label = "Dark Theme"
             addCssClass("user-select-none")
         }.subscribe {
-            Settings.darkTheme = it
+            Persistence.darkTheme = it
         }
 
-        switch(value = Settings.militaryTime) {
+        switch(value = Persistence.militaryTime) {
             label = "24-Hour Time"
             marginBottom = 12.px
             addCssClass("user-select-none")
         }.subscribe {
-            Settings.militaryTime = it
+            Persistence.militaryTime = it
         }
 
         select(
             label = "Keep entries for",
             options = EntryLifespan.getElements(),
-            value = Settings.entryLifespan.toString()
+            value = Persistence.entryLifespan.toString()
         ){
             addCssClass("user-select-none")
         }.subscribe {
-            Settings.entryLifespan = EntryLifespan.valueOf(it!!)
+            Persistence.entryLifespan = EntryLifespan.valueOf(it!!)
         }
 
         select(
             label = "Time Format",
             options = TimeFormat.getElements(),
-            value = Settings.timeFormat.toString()
+            value = Persistence.timeFormat.toString()
         ){
             addCssClass("user-select-none")
         }.subscribe {
-            Settings.timeFormat = TimeFormat.valueOf(it!!)
+            Persistence.timeFormat = TimeFormat.valueOf(it!!)
         }
 
         spinner(
             label = "Minutes in a Work Day",
-            value = Settings.minutesInWorkDay,
+            value = Persistence.minutesInWorkDay,
             min = 1,
             max = 1439,
         ){
             addCssClass("user-select-none")
         }.subscribe {
-            Settings.minutesInWorkDay = it!!.toLong()
+            Persistence.minutesInWorkDay = it!!.toLong()
         }
     }
 

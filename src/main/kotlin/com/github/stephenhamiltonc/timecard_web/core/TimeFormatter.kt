@@ -1,14 +1,14 @@
 package com.github.stephenhamiltonc.timecard_web.core
 
 import kotlinx.datetime.*
-import com.github.stephenhamiltonc.timecard_web.core.settings.Settings
+import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
 
 /**
  * Converts the given 24-hour value to a 12-hour value
  */
 private fun formatHour(hour: Int): Int {
-    return if(Settings.militaryTime) {
+    return if(Persistence.militaryTime) {
         hour
     } else {
         if(hour == 0) {
@@ -25,7 +25,7 @@ private fun formatHour(hour: Int): Int {
  * Gets the meridiem string for the given 24-hour value, if applicable
  */
 private fun getMeridiem(hour: Int): String {
-    return if(!Settings.militaryTime) {
+    return if(!Persistence.militaryTime) {
         if(hour >= 12) {
             " PM"
         } else {
@@ -36,7 +36,7 @@ private fun getMeridiem(hour: Int): String {
     }
 }
 
-fun Long.formatMinutes(format: TimeFormat = Settings.timeFormat): String {
+fun Long.formatMinutes(format: TimeFormat = Persistence.timeFormat): String {
     return format.formatter(this)
 }
 
