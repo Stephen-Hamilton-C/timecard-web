@@ -25,3 +25,20 @@
 .tooltip {
     --bs-tooltip-color: var(--bs-body-color);
 }
+
+/* Select color fix */
+.form-select{
+    background-color: #505050;
+    color: white;
+    border-color: #404040;
+}
+
+.form-control {
+    background-color: #505050;
+    color: white;
+}
+
+.form-control:focus {
+    background-color: #575757;
+    color: white;
+}
