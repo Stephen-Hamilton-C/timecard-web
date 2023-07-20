@@ -33,8 +33,10 @@
     border-color: #404040;
 }
 
+/* Spinner color fix */
 .form-control {
     background-color: #505050;
+    border-color: #404040;
     color: white;
 }
 
