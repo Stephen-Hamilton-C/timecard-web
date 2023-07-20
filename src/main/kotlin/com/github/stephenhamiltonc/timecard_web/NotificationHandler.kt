@@ -29,7 +29,7 @@ object NotificationHandler {
     }
 
     fun requestPermission() {
-        if (Notification.permission == NotificationPermission.DEFAULT) {
+        if (!Persistence.hasAsked && Notification.permission != NotificationPermission.GRANTED) {
             Confirm.show(
                 caption = "Notification Permission Notice",
                 text = "Timecard Web would like permission to send a notification when you reach your expected end time while clocked in.",
@@ -47,7 +47,12 @@ object NotificationHandler {
                         }
                     }
                 },
+                noCallback = {
+                    Persistence.hasAsked = false
+                },
             )
+
+            Persistence.hasAsked = true
         }
     }
 }

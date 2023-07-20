@@ -9,6 +9,7 @@ private const val entryLifespanKey = "settings.entryLifespan"
 private const val timeFormatKey = "settings.timeFormat"
 private const val minutesInWorkDayKey = "settings.minutesInWorkDay"
 private const val lastNotifiedKey = "notification.lastNotified"
+private const val hasAskedKey = "notification.hasAsked"
 
 object Persistence {
     var darkTheme by LocalStorageProperty(darkThemeKey, true, Boolean.serializer())
@@ -18,4 +19,5 @@ object Persistence {
     var timeFormat by LocalStorageProperty(timeFormatKey, TimeFormat.QUARTER_HOUR, TimeFormat.serializer())
     var minutesInWorkDay by LocalStorageProperty(minutesInWorkDayKey, (8 * 60), Long.serializer())
     var lastNotified by LocalStorageProperty(lastNotifiedKey, Instant.DISTANT_PAST, Instant.serializer())
+    var hasAsked by LocalStorageProperty(hasAskedKey, false, Boolean.serializer())
 }
