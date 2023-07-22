@@ -1,16 +1,18 @@
 package com.github.stephenhamiltonc.timecard_web.core
 
 import com.github.stephenhamiltonc.timecard.Timecard
+import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import io.kvision.state.ObservableValue
 import kotlinx.browser.localStorage
 import kotlinx.browser.window
+import kotlinx.datetime.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 private const val timecardStorageKey = "timecard"
 
 object TimecardState {
-    var _timecard = Timecard()
+    private var _timecard = Timecard()
     val onModified = ObservableValue(_timecard)
 
     init {
@@ -37,8 +39,11 @@ object TimecardState {
 
 
         // Clean up old entries
-        // TODO: Use a setting to determine how far back to clean
-        _timecard.clean()
+        val currentDate = Clock.System.now()
+            .toLocalDateTime(TimeZone.currentSystemDefault())
+            .date
+        val oldestDate = currentDate.minus(Persistence.entryLifespan.days, DateTimeUnit.DAY)
+        _timecard.clean(oldestDate)
 
         onModified.setState(_timecard)
         return success
