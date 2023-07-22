@@ -4,13 +4,10 @@ import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import io.kvision.core.Container
-import io.kvision.core.Display
 import io.kvision.core.JustifyContent
-import io.kvision.form.time.DateTime
 import io.kvision.form.time.DateTimeInput
 import io.kvision.html.button
 import io.kvision.panel.HPanel
-import io.kvision.state.bind
 import io.kvision.toolbar.buttonGroup
 import io.kvision.utils.px
 import kotlinx.datetime.*
@@ -56,6 +53,7 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
                 "btn-success"
             }
 
+            // TODO: Figure out how to bind to DateTime
             val clockDateText = if (picker.value == null) {
                 ""
             } else {
