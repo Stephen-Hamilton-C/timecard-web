@@ -6,6 +6,7 @@ import io.kvision.core.Container
 import io.kvision.core.JustifyContent
 import io.kvision.html.button
 import io.kvision.panel.HPanel
+import io.kvision.toolbar.buttonGroup
 import io.kvision.utils.px
 
 class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) {
@@ -23,22 +24,34 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
             TimecardState.save()
         }
 
-        button(
-            text = "Clock $clockText",
-            className = if(timecard.isClockedIn) {
+        buttonGroup {
+            val clockClassName = if (timecard.isClockedIn) {
                 "btn-danger"
             } else {
                 "btn-success"
             }
-        ).onClick {
-            if(timecard.isClockedIn) {
-                timecard.clockOut()
-            } else {
-                timecard.clockIn()
+
+            button(
+                text = "Clock $clockText",
+                className = clockClassName
+            ).onClick {
+                if (timecard.isClockedIn) {
+                    timecard.clockOut()
+                } else {
+                    timecard.clockIn()
+                }
+
+                TimecardState.save()
             }
 
-            TimecardState.save()
+            button(
+                text = "",
+                className = "$clockClassName bi bi-chevron-down"
+            ).onClick {
+                println("Open")
+            }
         }
+
     }
 }
 
