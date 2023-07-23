@@ -8,6 +8,8 @@ import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import io.kvision.core.Container
 import io.kvision.core.JustifyContent
 import io.kvision.form.time.DateTimeInput
+import io.kvision.form.time.Theme
+import io.kvision.form.time.ViewMode
 import io.kvision.html.button
 import io.kvision.html.div
 import io.kvision.panel.HPanel
@@ -32,14 +34,17 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
             TimecardState.save()
         }
 
-        // TODO: Icons are missing... something to do with FontAwesome?
         val lastEntry = timecard.entries.lastOrNull()
         val lastClockTime = lastEntry?.end ?: lastEntry?.start
 
-        val picker = DateTimeInput() {
+        val timePicker = DateTimeInput() {
             // Set maxDate to a minute in the future so the current time can be selected
             minDate = lastClockTime?.toJSDate()
             maxDate = Date(Date.now() + 60000)
+            theme = if(Persistence.darkTheme) Theme.DARK else Theme.LIGHT
+            promptTimeOnDateChange = true
+            viewMode = ViewMode.CLOCK
+
             if(Persistence.militaryTime) {
                 // TODO: HH:mm still shows 12-hour time... is this a bug?
                 // hh:mm shows 12-hour time too
@@ -50,24 +55,29 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
             }
         }
 
-        buttonGroup().bind(picker.input) {
+        buttonGroup().bind(timePicker.input) {
             val clockClassName = if (timecard.isClockedIn) {
                 "btn-danger"
             } else {
                 "btn-success"
             }
 
-            val clockTime = picker.value?.toKotlinInstant() ?: Clock.System.now()
-            val clockDateText = if (picker.value == null) {
+            val clockTime = timePicker.value?.toKotlinInstant() ?: Clock.System.now()
+            val clockDateText = if (timePicker.value == null) {
                 ""
             } else {
                 val now = Clock.System.now()
-                val formattedTime = if(clockTime.daysUntil(now, TimeZone.currentSystemDefault()) > 0) {
-                    clockTime.formatWithDate()
+                val timeSinceSelectedTime = now - timePicker.value!!.toKotlinInstant()
+                if(timeSinceSelectedTime.inWholeMinutes == 0L) {
+                    ""
                 } else {
-                    clockTime.format()
+                    val formattedTime = if (clockTime.daysUntil(now, TimeZone.currentSystemDefault()) > 0) {
+                        clockTime.formatWithDate()
+                    } else {
+                        clockTime.format()
+                    }
+                    " at $formattedTime"
                 }
-                " at $formattedTime"
             }
 
             button(
@@ -80,7 +90,7 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
                     timecard.clockIn(clockTime)
                 }
 
-                picker.value = null
+                timePicker.value = null
                 TimecardState.save()
             }
 
@@ -89,17 +99,18 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
                 className = "$clockClassName bi bi-chevron-down"
             ).onClick {
                 it.stopPropagation()
-                picker.togglePopup()
+                timePicker.togglePopup()
             }
         }
 
         div {
-            setStyle("visibility", "hidden")
             width = 0.px
             height = 0.px
-            setStyle("transform", "translate(-306px, -6px)")
+            setStyle("visibility", "hidden")
+            val translateX = if(timePicker.sideBySide) "-609" else "-306"
+            setStyle("transform", "translate(${translateX}px, -24px)")
 
-            add(picker)
+            add(timePicker)
         }
     }
 }
