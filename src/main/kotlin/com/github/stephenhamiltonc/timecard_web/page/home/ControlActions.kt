@@ -2,12 +2,15 @@ package com.github.stephenhamiltonc.timecard_web.page.home
 
 import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
+import com.github.stephenhamiltonc.timecard_web.core.format
+import com.github.stephenhamiltonc.timecard_web.core.formatWithDate
 import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
 import io.kvision.core.Container
 import io.kvision.core.JustifyContent
 import io.kvision.form.time.DateTimeInput
 import io.kvision.html.button
 import io.kvision.panel.HPanel
+import io.kvision.state.bind
 import io.kvision.toolbar.buttonGroup
 import io.kvision.utils.px
 import kotlinx.datetime.*
@@ -29,8 +32,12 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
         }
 
         // TODO: Icons are missing... something to do with FontAwesome?
+        val lastEntry = timecard.entries.lastOrNull()
+        val lastClockTime = lastEntry?.end ?: lastEntry?.start
+
         val picker = DateTimeInput() {
             // Set maxDate to a minute in the future so the current time can be selected
+            minDate = lastClockTime?.toJSDate()
             maxDate = Date(Date.now() + 60000)
             if(Persistence.militaryTime) {
                 // TODO: HH:mm still shows 12-hour time... is this a bug?
@@ -46,25 +53,30 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
             setStyle("transform", "translate(-306px, 44px)")
         }
 
-        buttonGroup() {
+        buttonGroup().bind(picker.input) {
             val clockClassName = if (timecard.isClockedIn) {
                 "btn-danger"
             } else {
                 "btn-success"
             }
 
-            // TODO: Figure out how to bind to DateTime
+            val clockTime = picker.value?.toKotlinInstant() ?: Clock.System.now()
             val clockDateText = if (picker.value == null) {
                 ""
             } else {
-                " at ${picker.value}"
+                val now = Clock.System.now()
+                val formattedTime = if(clockTime.daysUntil(now, TimeZone.currentSystemDefault()) > 0) {
+                    clockTime.formatWithDate()
+                } else {
+                    clockTime.format()
+                }
+                " at $formattedTime"
             }
 
             button(
-                text = "Clock $clockText",
+                text = "Clock $clockText$clockDateText",
                 className = clockClassName
             ).onClick {
-                val clockTime = picker.value?.toKotlinInstant() ?: Clock.System.now()
                 if (timecard.isClockedIn) {
                     timecard.clockOut(clockTime)
                 } else {
