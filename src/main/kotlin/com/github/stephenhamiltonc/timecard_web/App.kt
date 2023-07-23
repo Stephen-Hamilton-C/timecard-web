@@ -41,6 +41,8 @@ fun main() {
         BootstrapModule,
         BootstrapCssModule,
         ToastifyModule,
+        FontAwesomeModule,
+        DatetimeModule,
         BootstrapIconsModule,
         TabulatorModule,
         TabulatorCssBootstrapModule,
