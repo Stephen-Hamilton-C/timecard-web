@@ -51,7 +51,6 @@ object TimecardState {
 
     fun save() {
         val timecardData = Json.encodeToString(_timecard)
-        println("Saving Timecard as $timecardData")
         localStorage.setItem(timecardStorageKey, timecardData)
 
         onModified.setState(_timecard)
