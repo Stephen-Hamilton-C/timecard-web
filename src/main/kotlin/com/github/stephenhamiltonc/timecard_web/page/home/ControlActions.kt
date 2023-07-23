@@ -9,6 +9,7 @@ import io.kvision.core.Container
 import io.kvision.core.JustifyContent
 import io.kvision.form.time.DateTimeInput
 import io.kvision.html.button
+import io.kvision.html.div
 import io.kvision.panel.HPanel
 import io.kvision.state.bind
 import io.kvision.toolbar.buttonGroup
@@ -47,10 +48,6 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
                 // This, along with a property to determine if the popup is open or not, along with an event
                 format = "YYYY-MM-DD H:mm"
             }
-            width = 0.px
-            height = 0.px
-            zIndex = -1
-            setStyle("transform", "translate(-306px, 44px)")
         }
 
         buttonGroup().bind(picker.input) {
@@ -96,7 +93,14 @@ class ControlActions(timecard: Timecard) : HPanel(justify = JustifyContent.END) 
             }
         }
 
-        add(picker)
+        div {
+            setStyle("visibility", "hidden")
+            width = 0.px
+            height = 0.px
+            setStyle("transform", "translate(-306px, -6px)")
+
+            add(picker)
+        }
     }
 }
 
