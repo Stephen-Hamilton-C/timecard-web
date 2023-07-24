@@ -6,6 +6,7 @@ import com.github.stephenhamiltonc.timecard_web.core.formatWithDate
 import io.kvision.core.Container
 import io.kvision.html.*
 import io.kvision.panel.SimplePanel
+import io.kvision.state.bind
 import io.kvision.utils.px
 
 class TimeLog(timecard: Timecard) : SimplePanel() {
@@ -17,12 +18,18 @@ class TimeLog(timecard: Timecard) : SimplePanel() {
                 padding = 12.px
                 paddingBottom = 0.px
 
-                logActions(timecard)
+                val actions = logActions(timecard)
 
-                table(className = "table table-striped") {
+                table(className = "table table-striped").bind(actions) { dateRange ->
                     tbody {
                         // TODO: Make a header for each day
-                        for (entry in timecard.entries) {
+
+                        val entries = if(dateRange.isDefined()) {
+                            timecard.filterByDateRange(dateRange.toClosedRange())
+                        } else {
+                            timecard.entries
+                        }
+                        for (entry in entries) {
                             tr {
                                 td("IN: ${entry.start.formatWithDate()}")
                                 td {
