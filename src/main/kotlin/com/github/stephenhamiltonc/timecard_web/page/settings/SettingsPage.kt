@@ -105,16 +105,26 @@ class SettingsPage() : SimplePanel() {
             marginTop = 12.px
             marginBottom = btnSpacing
         }.onClick { importTimecard() }
-
         button("Export Timecard Data"){
             display = Display.BLOCK
             marginBottom = btnSpacing
         }.onClick { exportTimecard(timecard) }
 
+        button("Import Timecard Settings") {
+            display = Display.BLOCK
+            marginTop = 24.px
+            marginBottom = btnSpacing
+        }.onClick { importSettings() }
+        button("Export Timecard Settings") {
+            display = Display.BLOCK
+            marginBottom = btnSpacing
+        }.onClick { exportSettings() }
+
         button(
             text = "Clear Timecard Data",
             style = ButtonStyle.DANGER
         ) {
+            marginTop = 24.px
             display = Display.BLOCK
         }.onClick {
             Confirm.show(
@@ -132,6 +142,46 @@ class SettingsPage() : SimplePanel() {
         }
     }
 
+    private fun openFile(accept: String, onLoad: (String) -> Unit) {
+        val input = document.createElement("input") as HTMLInputElement
+        input.type = "file"
+        input.accept = accept
+        input.onchange = {
+            input.files?.item(0)?.let { file ->
+                val reader = FileReader()
+                reader.onload = {
+                    onLoad(reader.result as String)
+                }
+                reader.readAsText(file)
+            }
+        }
+        input.click()
+    }
+
+    private fun exportSettings() {
+        val settingsData = Persistence.export()
+        settingsData.downloadAsFile("application/json", "timecard_settings.json")
+        Toast.success(
+            "Successfully exported Timecard settings!",
+            generalToastOptions
+        )
+    }
+
+    private fun importSettings() {
+        openFile("application/json") { data ->
+            try {
+                Persistence.import(data)
+                window.location.reload()
+            } catch(se: SerializationException) {
+                // Serialization threw the error due to a decoding error
+                Toast.danger(
+                    "Error while decoding the provided Timecard settings! Did you select the right file?",
+                    persistentToastOptions
+                )
+            }
+        }
+    }
+
     private fun exportTimecard(timecard: Timecard) {
         val timecardData = Json.encodeToString(timecard)
         val today = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()).date
@@ -143,48 +193,37 @@ class SettingsPage() : SimplePanel() {
     }
 
     private fun importTimecard() {
-        val input = document.createElement("input") as HTMLInputElement
-        input.type = "file"
-        input.accept = "application/json"
-        input.onchange = {
-            input.files?.item(0)?.let { file ->
-                val reader = FileReader()
-                reader.onload = {
-                    println("File opened")
-                    val data = reader.result as String
-                    val errorStartText = "Error while decoding the provided Timecard data!"
-                    try {
-                        val newTimecard = Json.decodeFromString<Timecard>(data)
-                        TimecardState.import(newTimecard)
-                        TimecardState.save()
-                        println("Finished importing Timecard")
-                        Toast.success(
-                            "Successfully imported Timecard data!",
-                            generalToastOptions
-                        )
-                    } catch(se: SerializationException) {
-                        // Serialization threw the error due to a decoding error
-                        Toast.danger(
-                            "$errorStartText Is this from an incompatible version?",
-                            persistentToastOptions
-                        )
-                    } catch(iae: IllegalArgumentException) {
-                        // Serialization threw the error due to mismatched Json
-                        Toast.danger(
-                            "$errorStartText Did you select the right file?",
-                            persistentToastOptions
-                        )
-                    } catch(ise: IllegalStateException) {
-                        // Timecard Lib threw the error due to non-chronological data
-                        Toast.danger(
-                            "$errorStartText Was the file tampered with?",
-                            persistentToastOptions
-                        )
-                    }
-                }
-                reader.readAsText(file)
+        openFile("application/json") { data ->
+            val errorStartText = "Error while decoding the provided Timecard data!"
+
+            try {
+                val newTimecard = Json.decodeFromString<Timecard>(data)
+                TimecardState.import(newTimecard)
+                TimecardState.save()
+                println("Finished importing Timecard")
+                Toast.success(
+                    "Successfully imported Timecard data!",
+                    generalToastOptions
+                )
+            } catch(se: SerializationException) {
+                // Serialization threw the error due to a decoding error
+                Toast.danger(
+                    "$errorStartText Is this from an incompatible version?",
+                    persistentToastOptions
+                )
+            } catch(iae: IllegalArgumentException) {
+                // Serialization threw the error due to mismatched Json
+                Toast.danger(
+                    "$errorStartText Did you select the right file?",
+                    persistentToastOptions
+                )
+            } catch(ise: IllegalStateException) {
+                // Timecard Lib threw the error due to non-chronological data
+                Toast.danger(
+                    "$errorStartText Was the file tampered with?",
+                    persistentToastOptions
+                )
             }
         }
-        input.click()
     }
 }

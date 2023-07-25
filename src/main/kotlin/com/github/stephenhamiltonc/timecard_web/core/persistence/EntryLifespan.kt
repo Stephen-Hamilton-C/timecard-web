@@ -24,7 +24,9 @@ enum class EntryLifespan(val days: Int, val displayName: String) {
             if(type == null) return null
             return try {
                 valueOf(type)
-            } catch(_: IllegalArgumentException) {
+            } catch(_: Exception) {
+                // Somehow, valueOf can also throw an IllegalStateException,
+                // despite documentation only mentioning IllegalArgument
                 null
             }
         }

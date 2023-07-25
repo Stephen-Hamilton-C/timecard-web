@@ -60,7 +60,9 @@ enum class TimeFormat(val displayName: String, val tooltip: Boolean, val formatt
             if(type == null) return null
             return try {
                 valueOf(type)
-            } catch(_: IllegalArgumentException) {
+            } catch(_: Exception) {
+                // Somehow, valueOf can also throw an IllegalStateException,
+                // despite documentation only mentioning IllegalArgument
                 null
             }
         }
