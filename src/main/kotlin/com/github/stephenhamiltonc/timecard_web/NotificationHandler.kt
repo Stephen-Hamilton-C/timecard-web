@@ -2,7 +2,7 @@ package com.github.stephenhamiltonc.timecard_web
 
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.core.generalToastOptions
-import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
+import com.github.stephenhamiltonc.timecard_web.core.persistence.Persistence
 import io.kvision.modal.Confirm
 import io.kvision.toast.Toast
 import kotlinx.datetime.Clock

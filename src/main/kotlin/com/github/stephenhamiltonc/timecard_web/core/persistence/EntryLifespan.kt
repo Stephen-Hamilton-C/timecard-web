@@ -1,4 +1,4 @@
-package com.github.stephenhamiltonc.timecard_web.core.settings
+package com.github.stephenhamiltonc.timecard_web.core.persistence
 
 import io.kvision.core.StringPair
 import kotlinx.serialization.Serializable
@@ -24,7 +24,9 @@ enum class EntryLifespan(val days: Int, val displayName: String) {
             if(type == null) return null
             return try {
                 valueOf(type)
-            } catch(_: IllegalArgumentException) {
+            } catch(_: Exception) {
+                // Somehow, valueOf can also throw an IllegalStateException,
+                // despite documentation only mentioning IllegalArgument
                 null
             }
         }

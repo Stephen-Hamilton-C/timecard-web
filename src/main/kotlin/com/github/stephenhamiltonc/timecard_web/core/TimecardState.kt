@@ -1,7 +1,7 @@
 package com.github.stephenhamiltonc.timecard_web.core
 
 import com.github.stephenhamiltonc.timecard.Timecard
-import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
+import com.github.stephenhamiltonc.timecard_web.core.persistence.Persistence
 import io.kvision.state.ObservableValue
 import kotlinx.browser.localStorage
 import kotlinx.browser.window

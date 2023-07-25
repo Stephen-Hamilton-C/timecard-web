@@ -4,7 +4,7 @@ import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.core.format
 import com.github.stephenhamiltonc.timecard_web.core.formatWithDate
-import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
+import com.github.stephenhamiltonc.timecard_web.core.persistence.Persistence
 import io.kvision.core.Container
 import io.kvision.core.JustifyContent
 import io.kvision.form.time.DateTimeInput
