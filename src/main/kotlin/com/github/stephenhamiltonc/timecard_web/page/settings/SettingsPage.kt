@@ -4,9 +4,9 @@ import com.github.stephenhamiltonc.timecard.Timecard
 import com.github.stephenhamiltonc.timecard_web.Card
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.core.persistentToastOptions
-import com.github.stephenhamiltonc.timecard_web.core.settings.EntryLifespan
-import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
-import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
+import com.github.stephenhamiltonc.timecard_web.core.persistence.EntryLifespan
+import com.github.stephenhamiltonc.timecard_web.core.persistence.Persistence
+import com.github.stephenhamiltonc.timecard_web.core.persistence.TimeFormat
 import com.github.stephenhamiltonc.timecard_web.core.generalToastOptions
 import downloadAsFile
 import io.kvision.core.Display

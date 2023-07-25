@@ -1,4 +1,4 @@
-package com.github.stephenhamiltonc.timecard_web.core.settings
+package com.github.stephenhamiltonc.timecard_web.core.persistence
 
 import kotlinx.datetime.Instant
 import kotlinx.serialization.builtins.serializer
@@ -14,7 +14,6 @@ private const val hasAskedKey = "notification.hasAsked"
 object Persistence {
     var darkTheme by LocalStorageProperty(darkThemeKey, true, Boolean.serializer())
     var militaryTime by LocalStorageProperty(militaryTimeKey, false, Boolean.serializer())
-    // TODO: Implement
     var entryLifespan by LocalStorageProperty(entryLifespanKey, EntryLifespan.ONE_MONTH, EntryLifespan.serializer())
     var timeFormat by LocalStorageProperty(timeFormatKey, TimeFormat.QUARTER_HOUR, TimeFormat.serializer())
     var minutesInWorkDay by LocalStorageProperty(minutesInWorkDayKey, (8 * 60), Long.serializer())

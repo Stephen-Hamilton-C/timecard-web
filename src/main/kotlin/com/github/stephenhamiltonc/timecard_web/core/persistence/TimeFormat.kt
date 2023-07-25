@@ -1,4 +1,4 @@
-package com.github.stephenhamiltonc.timecard_web.core.settings
+package com.github.stephenhamiltonc.timecard_web.core.persistence
 
 import kotlin.math.roundToInt
 import com.github.stephenhamiltonc.timecard_web.core.separateHoursMinutes
