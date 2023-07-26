@@ -2,7 +2,7 @@ package com.github.stephenhamiltonc.timecard_web
 
 import com.github.stephenhamiltonc.timecard_web.core.TimecardState
 import com.github.stephenhamiltonc.timecard_web.core.persistentToastOptions
-import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
+import com.github.stephenhamiltonc.timecard_web.core.persistence.Persistence
 import io.kvision.*
 import io.kvision.panel.root
 import io.kvision.routing.Routing
@@ -41,6 +41,8 @@ fun main() {
         BootstrapModule,
         BootstrapCssModule,
         ToastifyModule,
+        FontAwesomeModule,
+        DatetimeModule,
         BootstrapIconsModule,
         TabulatorModule,
         TabulatorCssBootstrapModule,

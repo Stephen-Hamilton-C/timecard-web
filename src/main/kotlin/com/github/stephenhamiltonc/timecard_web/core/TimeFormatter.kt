@@ -1,8 +1,8 @@
 package com.github.stephenhamiltonc.timecard_web.core
 
 import kotlinx.datetime.*
-import com.github.stephenhamiltonc.timecard_web.core.settings.Persistence
-import com.github.stephenhamiltonc.timecard_web.core.settings.TimeFormat
+import com.github.stephenhamiltonc.timecard_web.core.persistence.Persistence
+import com.github.stephenhamiltonc.timecard_web.core.persistence.TimeFormat
 
 /**
  * Converts the given 24-hour value to a 12-hour value
