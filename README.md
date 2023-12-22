@@ -23,5 +23,11 @@ Data is stored in browser local storage, so no server is required.
 All data is stored locally in web browser data.
 If the site data is cleared, all timecard data will be lost.
 
+# Building
+All you need is JDK 17 and
+```
+./gradlew build
+```
+
 # License
 timecard-web is licensed under the GNU General Public License v3.0. You can find the license details in the [LICENSE](https://github.com/Stephen-Hamilton-C/timecard-web/blob/main/LICENSE) file in the main branch. Feel free to repurpose, redistribute, and branch off this code anytime. Just keep your modifications open source and licensed the same way :D
