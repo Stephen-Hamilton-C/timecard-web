@@ -24,10 +24,15 @@ All data is stored locally in web browser data.
 If the site data is cleared, all timecard data will be lost.
 
 # Building
-All you need is JDK 17 and
-```
-./gradlew build
-```
+1. Install JDK 17 or later
+2. `git clone https://github.com/Stephen-Hamilton-C/timecard-lib.git`
+3. Publish `timecard-lib` to your local maven repo by running this command in the `timecard-lib` folder
+    - `./gradlew publishToMavenLocal` on Linux/macOS
+    - `.\gradlew.bat publishToMavenLocal` on Windows
+4. Create the browser build with this command in the `timecard-web` folder
+    - `./gradlew build browserDistribution` on Linux/macOS
+    - `.\gradlew.bat publishToMavenLocal` on Windows
+5. Find the resulting build in `./build/distributions`
 
 # License
 timecard-web is licensed under the GNU General Public License v3.0. You can find the license details in the [LICENSE](https://github.com/Stephen-Hamilton-C/timecard-web/blob/main/LICENSE) file in the main branch. Feel free to repurpose, redistribute, and branch off this code anytime. Just keep your modifications open source and licensed the same way :D
