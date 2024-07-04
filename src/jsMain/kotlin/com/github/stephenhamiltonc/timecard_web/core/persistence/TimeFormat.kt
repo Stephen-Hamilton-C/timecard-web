@@ -53,7 +53,7 @@ enum class TimeFormat(val displayName: String, val tooltip: Boolean, val formatt
 
     companion object {
         fun getElements(): List<StringPair> {
-            return values().map { it.toString() to it.displayName }
+            return entries.map { it.toString() to it.displayName }
         }
 
         fun valueOfOrNull(type: String?): TimeFormat? {
