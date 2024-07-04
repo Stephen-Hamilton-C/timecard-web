@@ -57,7 +57,7 @@ class DaySummary(timecard: Timecard, day: LocalDate = LocalDate.today()) : Simpl
 
         span {
             +"Expected end time: "
-            val expectedEndTime = timecard.calculateExpectedEndTime(Persistence.minutesInWorkDay)
+            val expectedEndTime = timecard.calculateExpectedEndTime(Persistence.minutesInWorkDay, day)
             span(expectedEndTime?.format())
         }
         br()
