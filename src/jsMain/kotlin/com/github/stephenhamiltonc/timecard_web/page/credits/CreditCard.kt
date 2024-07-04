@@ -8,17 +8,17 @@ import io.kvision.html.link
 import io.kvision.panel.SimplePanel
 
 // Heheh, like the play on words?
-class CreditCard(project: String, author: String? = null, license: String, website: String) : SimplePanel() {
+class CreditCard(data: CreditData) : SimplePanel() {
     init {
-        card(title = project) {
-            if(author != null) {
-                +"Written by $author"
+        card(title = data.project) {
+            if(data.author != null) {
+                +"Written by ${data.author}"
                 br()
             }
 
-            +"Protected under the $license license"
+            +"Protected under the ${data.license} license"
             br()
-            link(label = "Source Code", url = website, className = "btn btn-outline-primary") {
+            link(label = "Source Code", url = data.website, className = "btn btn-outline-primary") {
                 target = "_blank"
                 setAttribute("rel", "noopener noreferrer")
 
@@ -28,6 +28,6 @@ class CreditCard(project: String, author: String? = null, license: String, websi
     }
 }
 
-fun Container.creditCard(project: String, author: String? = null, license: String, website: String): CreditCard {
-    return CreditCard(project, author, license, website).also { add(it) }
+fun Container.creditCard(data: CreditData): CreditCard {
+    return CreditCard(data).also { add(it) }
 }
