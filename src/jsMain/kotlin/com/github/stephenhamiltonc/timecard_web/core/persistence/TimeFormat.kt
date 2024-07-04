@@ -8,41 +8,49 @@ import pluralize
 
 @Serializable
 enum class TimeFormat(val displayName: String, val tooltip: Boolean, val formatter: (Long) -> String) {
+    TENTH_HOUR(
+        displayName = "Tenth of an Hour",
+        tooltip = true,
+        { totalMinutes: Long ->
+            val tenthHoursWorked = ((totalMinutes / 6.0).roundToInt() * 6.0) / 60.0
+            "$tenthHoursWorked hours"
+        }
+    ),
     QUARTER_HOUR(
-        "Quarter Hour",
-        true,
+        displayName = "Quarter Hour",
+        tooltip = true,
         { totalMinutes: Long ->
             val quarterHoursWorked = ((totalMinutes / 15.0).roundToInt() * 15.0) / 60.0
             "$quarterHoursWorked hours"
         }
     ),
     HALF_HOUR(
-        "Half Hour",
-        true,
+        displayName = "Half Hour",
+        tooltip = true,
         { totalMinutes: Long -> 
             val halfHoursWorked = ((totalMinutes / 30.0).roundToInt() * 30.0) / 60.0
             "$halfHoursWorked hours"
         }
     ),
     HOURS_MINUTES(
-        "X hours, Y minutes",
-        false,
+        displayName = "X hours, Y minutes",
+        tooltip = false,
         { totalMinutes: Long -> 
             val (hours, minutes) = totalMinutes.separateHoursMinutes()
             "$hours ${"hour".pluralize(hours)}, $minutes ${"minute".pluralize(minutes)}"
         }
     ),
     HR_MIN(
-        "X hrs, Y mins",
-        false,
+        displayName = "X hrs, Y mins",
+        tooltip = false,
         { totalMinutes: Long -> 
             val (hours, minutes) = totalMinutes.separateHoursMinutes()
             "$hours ${"hr".pluralize(hours)}, $minutes ${"min".pluralize(minutes)}"
         }
     ),
     CLOCK(
-        "hh:mm",
-        false,
+        displayName = "hh:mm",
+        tooltip = false,
         { totalMinutes: Long -> 
             val (hours, minutes) = totalMinutes.separateHoursMinutes()
             val paddedHours = hours.toString().padStart(2, '0')
