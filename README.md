@@ -32,7 +32,7 @@ If the site data is cleared, all timecard data will be lost.
     - `.\gradlew.bat publishToMavenLocal` on Windows
 5. Create the browser build with this command in the `timecard-web` folder
     - `./gradlew build browserDistribution` on Linux/macOS
-    - `.\gradlew.bat publishToMavenLocal` on Windows
+    - `.\gradlew.bat browserDistribution` on Windows
 6. Find the resulting build in `./build/distributions`
 
 # License
