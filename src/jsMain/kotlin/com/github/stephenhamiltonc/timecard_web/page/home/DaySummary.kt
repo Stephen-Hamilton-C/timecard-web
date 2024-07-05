@@ -10,7 +10,6 @@ import io.kvision.core.Container
 import io.kvision.core.Placement
 import io.kvision.core.TooltipOptions
 import io.kvision.core.enableTooltip
-import io.kvision.html.Div
 import io.kvision.html.br
 import io.kvision.html.span
 import io.kvision.panel.SimplePanel

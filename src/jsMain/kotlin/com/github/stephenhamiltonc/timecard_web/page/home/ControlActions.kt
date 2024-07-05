@@ -13,7 +13,6 @@ import io.kvision.form.time.ViewMode
 import io.kvision.html.br
 import io.kvision.html.button
 import io.kvision.html.div
-import io.kvision.panel.HPanel
 import io.kvision.panel.VPanel
 import io.kvision.panel.hPanel
 import io.kvision.state.MutableState
