@@ -17,7 +17,7 @@ enum class EntryLifespan(val days: Int, val displayName: String) {
 
     companion object {
         fun getElements(): List<StringPair> {
-            return values().map { it.toString() to it.displayName }
+            return entries.map { it.toString() to it.displayName }
         }
 
         fun valueOfOrNull(type: String?): EntryLifespan? {
