@@ -10,16 +10,25 @@ import io.kvision.core.Container
 import io.kvision.core.Placement
 import io.kvision.core.TooltipOptions
 import io.kvision.core.enableTooltip
+import io.kvision.html.Div
 import io.kvision.html.br
 import io.kvision.html.span
 import io.kvision.panel.SimplePanel
 import kotlinx.datetime.LocalDate
 
-fun Container.daySummary(timecard: Timecard, day: LocalDate = LocalDate.today()): DaySummary {
-    return DaySummary(timecard, day).also { add(it) }
+fun Container.daySummary(
+    timecard: Timecard,
+    day: LocalDate = LocalDate.today(),
+    useNowForBreak: Boolean = true,
+): DaySummary {
+    return DaySummary(timecard, day, useNowForBreak).also { add(it) }
 }
 
-class DaySummary(timecard: Timecard, day: LocalDate = LocalDate.today()) : SimplePanel() {
+class DaySummary(
+    timecard: Timecard,
+    day: LocalDate = LocalDate.today(),
+    useNowForBreak: Boolean = true,
+) : SimplePanel() {
     init {
         val minutesWorked = timecard.calculateMinutesWorked(day)
         val timeWorkedSpan = span {
@@ -38,7 +47,7 @@ class DaySummary(timecard: Timecard, day: LocalDate = LocalDate.today()) : Simpl
         }
         br()
 
-        val minutesOnBreak = timecard.calculateMinutesOnBreak(day)
+        val minutesOnBreak = timecard.calculateMinutesOnBreak(day, useNowForBreak)
         val timeOnBreakSpan = span {
             +"Time on break: "
             span(minutesOnBreak.formatMinutes(), className = "text-danger")
