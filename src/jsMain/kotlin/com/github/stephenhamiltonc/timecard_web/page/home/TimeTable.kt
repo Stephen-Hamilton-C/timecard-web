@@ -22,6 +22,11 @@ class TimeTable(entries: Collection<TimeEntry>): SimplePanel() {
                                 +"OUT: ${it.format()}"
                             }
                         }
+                        td {
+                            entry.tag?.let {
+                                +it
+                            }
+                        }
                     }
                 }
             }

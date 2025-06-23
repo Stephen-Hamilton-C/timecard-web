@@ -53,6 +53,12 @@ class ControlActions(timecard: Timecard) : VPanel(alignItems = AlignItems.END), 
         div(className = "my-1")
         br()
 
+        textInput() {
+            placeholder = "Tag (Optional)",
+            disabled = timecard.isClockedOut,
+        }
+        br()
+
         hPanel(justify = JustifyContent.END) {
 
             val clockText = if (timecard.isClockedIn) "out" else "in"
