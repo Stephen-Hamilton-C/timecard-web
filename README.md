@@ -1,3 +1,7 @@
+# Archived - 2026-09-17
+All repositories have been transferred to a personally-run repository.
+This remains up for legacy purposes.
+
 # timecard-web
 
 This is a Web frontend for [timecard-lib](https://github.com/Stephen-Hamilton-C/timecard-lib).
